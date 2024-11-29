@@ -93,7 +93,7 @@ func (matcher *DesiredLRPRemovedEventMatcher) NegatedFailureMessage(actual inter
 
 //
 
-func MatchActualLRPInstanceCreatedEvent(processGuid string, index int) gomega.OmegaMatcher {
+func MatchActualLRPInstanceCreatedEvent(processGuid string, index int32) gomega.OmegaMatcher {
 	return &ActualLRPInstanceCreatedEventMatcher{
 		ProcessGuid: processGuid,
 		Index:       index,
@@ -102,7 +102,7 @@ func MatchActualLRPInstanceCreatedEvent(processGuid string, index int) gomega.Om
 
 type ActualLRPInstanceCreatedEventMatcher struct {
 	ProcessGuid string
-	Index       int
+	Index       int32
 }
 
 func (matcher *ActualLRPInstanceCreatedEventMatcher) Match(actual interface{}) (success bool, err error) {
@@ -111,7 +111,7 @@ func (matcher *ActualLRPInstanceCreatedEventMatcher) Match(actual interface{}) (
 		return false, fmt.Errorf("ActualLRPInstanceCreatedEventMatcher matcher expects a models.ActualLRPInstanceCreatedEvent.  Got:\n%s", format.Object(actual, 1))
 	}
 	actualLRP := event.ActualLrp
-	return actualLRP.ProcessGuid == matcher.ProcessGuid && actualLRP.Index == int32(matcher.Index), nil
+	return actualLRP.ProcessGuid == matcher.ProcessGuid && actualLRP.Index == matcher.Index, nil
 }
 
 func (matcher *ActualLRPInstanceCreatedEventMatcher) FailureMessage(actual interface{}) (message string) {
@@ -124,7 +124,7 @@ func (matcher *ActualLRPInstanceCreatedEventMatcher) NegatedFailureMessage(actua
 
 //
 
-func MatchActualLRPInstanceChangedEvent(processGuid string, index int, state string) gomega.OmegaMatcher {
+func MatchActualLRPInstanceChangedEvent(processGuid string, index int32, state string) gomega.OmegaMatcher {
 	return &ActualLRPInstanceChangedEventMatcher{
 		ProcessGuid: processGuid,
 		Index:       index,
@@ -134,7 +134,7 @@ func MatchActualLRPInstanceChangedEvent(processGuid string, index int, state str
 
 type ActualLRPInstanceChangedEventMatcher struct {
 	ProcessGuid string
-	Index       int
+	Index       int32
 	State       string
 }
 
@@ -148,7 +148,7 @@ func (matcher *ActualLRPInstanceChangedEventMatcher) Match(actual interface{}) (
 	if err != nil {
 		return false, err
 	}
-	return actualLRP.ProcessGuid == matcher.ProcessGuid && actualLRP.Index == int32(matcher.Index) && event.After.State == matcher.State, nil
+	return actualLRP.ProcessGuid == matcher.ProcessGuid && actualLRP.Index == matcher.Index && event.After.State == matcher.State, nil
 }
 
 func (matcher *ActualLRPInstanceChangedEventMatcher) FailureMessage(actual interface{}) (message string) {
@@ -161,7 +161,7 @@ func (matcher *ActualLRPInstanceChangedEventMatcher) NegatedFailureMessage(actua
 
 //
 
-func MatchActualLRPInstanceRemovedEvent(processGuid string, index int) gomega.OmegaMatcher {
+func MatchActualLRPInstanceRemovedEvent(processGuid string, index int32) gomega.OmegaMatcher {
 	return &ActualLRPInstanceRemovedEventMatcher{
 		ProcessGuid: processGuid,
 		Index:       index,
@@ -170,7 +170,7 @@ func MatchActualLRPInstanceRemovedEvent(processGuid string, index int) gomega.Om
 
 type ActualLRPInstanceRemovedEventMatcher struct {
 	ProcessGuid string
-	Index       int
+	Index       int32
 }
 
 func (matcher *ActualLRPInstanceRemovedEventMatcher) Match(actual interface{}) (success bool, err error) {
@@ -179,7 +179,7 @@ func (matcher *ActualLRPInstanceRemovedEventMatcher) Match(actual interface{}) (
 		return false, fmt.Errorf("ActualLRPInstanceRemovedEventMatcher matcher expects a models.ActualLRPInstanceRemovedEvent.  Got:\n%s", format.Object(actual, 1))
 	}
 	actualLRP := event.ActualLrp
-	return actualLRP.ProcessGuid == matcher.ProcessGuid && actualLRP.Index == int32(matcher.Index), nil
+	return actualLRP.ProcessGuid == matcher.ProcessGuid && actualLRP.Index == matcher.Index, nil
 }
 
 func (matcher *ActualLRPInstanceRemovedEventMatcher) FailureMessage(actual interface{}) (message string) {
